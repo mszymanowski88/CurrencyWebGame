@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome in currency game</title>
+</head>
+<body>
+<h1>Currency Game App</h1>
+
+        <td th:text="${rateToGuess}"/>
+
+    <tr th:each="randomCurrencyName: ${currency}">
+        <td th:text="${randomCurrencyName.getRates}"/>
+<!--        <td th:text="${randomCurrencyName.getCode}"/>-->
+
+
+<!--<tr th:each="currencyRandom: ${currency}">-->
+
+<!--<table>-->
+<!--    <td th:text="${currency.getCurrency()}"/>-->
+<!--<tr th:each="currencyRandom: ${currency}">-->
+
+<!--    <td th:text="${currencyRandom.getCode}"/>-->
+<!--    <td th:text="${currencyRandom.getRateMid}"/>-->
+
+
+
+
+
+
+
+
+
+<!--</table>-->
+</body>
+</html>
