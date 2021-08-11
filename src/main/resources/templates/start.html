@@ -7,10 +7,19 @@
 <body>
 <h1>Currency Game App</h1>
 
-        <td th:text="${rateToGuess}"/>
+        <td th:text="${rate}"/>
+        <td th:text="${code}"/>
 
-    <tr th:each="randomCurrencyName: ${currency}">
-        <td th:text="${randomCurrencyName.getRates}"/>
+<form action="#" th:action="@{/start}" th:object="${userGuess}">
+    <label for="userGuess">First name:</label><br>
+    <input type="text" id="userGuess" name="rate" ><br>
+
+    <input type="submit" value="Submit">
+</form>
+
+
+<!--    <tr th:each="randomCurrencyName: ${currency}">-->
+<!--        <td th:text="${randomCurrencyName.getRates}"/>-->
 <!--        <td th:text="${randomCurrencyName.getCode}"/>-->
 
 
