@@ -8,13 +8,30 @@
 <h1>Currency Game App</h1>
 
         <td th:text="${rate}"/>
-        <td th:text="${code}"/>
+        <td th:text="${rateCode}"/>
 
-<form action="#" th:action="@{/start}" th:object="${userGuess}">
-    <label for="userGuess">First name:</label><br>
-    <input type="text" id="userGuess" name="rate" ><br>
 
-    <input type="submit" value="Submit">
+
+<!--<form action="#" th:action="@{/start}" th:object="${userInput}">-->
+<!--    <label for="userGuess">First name:</label><br>-->
+<!--    <input type="text" id="userGuess" name="rate" ><br>-->
+
+<!--    <input type="submit" value="Submit">-->
+<!--</form>-->
+
+
+<!--<form action="#" th:action="@{/start}" th:object="${rate}">-->
+<!--    <label for="userGuess">First name:</label><br>-->
+<!--    <input type="text" id="userGuess" name="rate" ><br>-->
+
+<!--    <input type="submit" value="Submit">-->
+<!--</form>-->
+
+<form action="#" th:action="@{/start}" th:object="${userInput}" method="post">
+
+        <p>Input your rate guess: <input type="text" th:field="*{mid}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+
 </form>
 
 
