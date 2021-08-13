@@ -7,8 +7,13 @@
 <body>
 <h1>Currency Game App</h1>
 
-        <td th:text="${rate}"/>
-        <td th:text="${rateCode}"/>
+<p>This would be hidded in final version, presented for testing purpose :</p>
+<td th:text="${rateCode}"/>
+
+<p>Guess rate of :</p>
+<td th:text="${rate}"/>
+
+
 
 
 
@@ -33,6 +38,9 @@
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 
 </form>
+<td th:text="${result}"/>
+<p>Number of guesses :</p>
+<td th:text="${counter}"/>
 
 
 <!--    <tr th:each="randomCurrencyName: ${currency}">-->

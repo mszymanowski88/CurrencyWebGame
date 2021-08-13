@@ -19,6 +19,7 @@ CurrencyGameService currencyGameService;
 private Rate rate;
 private BigDecimal rateToGuess;
 private String result;
+private int counter = 0;
 
 
     @Autowired
@@ -38,6 +39,8 @@ private String result;
         model.addAttribute("rate",rate.getCode());
         model.addAttribute("rateCode",rate.getMid());
         model.addAttribute("userInput", new Rate());
+        model.addAttribute("result", result);
+        model.addAttribute("counter",counter);
 
         return "start";
 
@@ -90,18 +93,30 @@ private String result;
         if(input.compareTo(rateToGuess)>0)
         {
 
-            System.out.println("post za dużo");
+            result = "too much, try one more time";
+            System.out.println("too much");
+            counter++;
 
 
         }
         if (input.equals(rateToGuess))
         {
 
+            result = "Congratulations! You won!";
+            System.out.println("Congratulations! You won!");
+        }
+
+        if (input.compareTo(rateToGuess)<0)
+        {
+
+            result = "too less, try one more time";
             System.out.println(" post wygrales");
+            counter++;
         }
         else
         {
-            System.out.println("post za mało");
+            System.out.println("something went wrong");
+
         }
 
         return "redirect:/start";
