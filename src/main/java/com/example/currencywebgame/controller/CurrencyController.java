@@ -1,6 +1,7 @@
 package com.example.currencywebgame.controller;
 
 import com.example.currencywebgame.api.Rate;
+import com.example.currencywebgame.service.CurrencyGameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,141 +15,76 @@ import java.math.RoundingMode;
 @Controller
 public class CurrencyController {
 
-CurrencyGameService currencyGameService;
+    private final CurrencyGameService currencyGameService;
 
-private Rate rate;
-private BigDecimal rateToGuess;
-private String result;
-private int counter = 0;
+    private final Rate rate;
+    private final BigDecimal rateToGuess;
+    private String result;
+    private int counter = 0;
 
 
     @Autowired
     public CurrencyController(CurrencyGameService currencyGameService) {
         this.currencyGameService = currencyGameService;
         rate = currencyGameService.getRandomRate();
-        rateToGuess = BigDecimal.valueOf(rate.getMid()).setScale(4,RoundingMode.HALF_UP);
-        System.out.println(rate.getMid());
-        System.out.println(rateToGuess);
+        rateToGuess = BigDecimal.valueOf(rate.getMid()).setScale(4, RoundingMode.HALF_UP);
+
     }
 
     @GetMapping("/start")
 
-    public String getRandomCurrency(Model model)
-
-    {
-        model.addAttribute("rate",rate.getCode());
-        model.addAttribute("rateCode",rate.getMid());
+    public String getRandomCurrency(Model model) {
+        model.addAttribute("rate", rate.getCode());
+        model.addAttribute("rateCode", rate.getMid());
         model.addAttribute("userInput", new Rate());
         model.addAttribute("result", result);
-        model.addAttribute("counter",counter);
+        model.addAttribute("counter", counter);
 
         return "start";
 
     }
 
-//    public double rateGuess(Double input)
-//    {
-//        Double rateToGuess = this.rate.getMid().doubleValue();
-//        System.out.println("rate to guess " + rateToGuess );
-//        System.out.println("input  " + input );
-//        if(input.compareTo(rateToGuess)>0)
-//        {
-//
-//            System.out.println("za dużo");
-//
-//        }
-//        if (input.compareTo(rateToGuess) == 0)
-//        {
-//
-//            System.out.println("wygrales");
-//        }
-//        else
-//        {
-//            System.out.println("za mało");
-//        }
-//
-//        return input;
-//    }
 
     @PostMapping("/start")
-    public String userGuess(@ModelAttribute Rate rate)
-    {
-//        Double input = rate;
-//        model.addAttribute("code",rate);
-//        Double rateToGuess = this.rate.getMid();
-//
-////        model.addAttribute("userGuess",rateGuess(guess));
-//
-////       double rateToGuess = this.rate.getMid().doubleValue();
-////        System.out.println(valueToGuess);
+    public String userGuess(@ModelAttribute Rate rate) {
+
         BigDecimal input = BigDecimal.valueOf(rate.getMid()).setScale(4, RoundingMode.HALF_UP);
-//        rateToGuess = BigDecimal.valueOf(rate.getMid()).setScale(4,RoundingMode.HALF_UP);
 
 
-        System.out.println("input" + input);
-        System.out.println("rate to guess" + rateToGuess);
-
-
-
-        if(input.compareTo(rateToGuess)>0)
-        {
+        if (input.compareTo(rateToGuess) > 0) {
 
             result = "too much, try one more time";
-            System.out.println("too much");
             counter++;
 
 
         }
-        if (input.equals(rateToGuess))
-        {
+        if (input.equals(rateToGuess)) {
 
             result = "Congratulations! You won!";
-            System.out.println("Congratulations! You won!");
         }
 
-        if (input.compareTo(rateToGuess)<0)
-        {
+        if (input.compareTo(rateToGuess) < 0) {
 
             result = "too less, try one more time";
-            System.out.println(" post wygrales");
             counter++;
-        }
-        else
-        {
-            System.out.println("something went wrong");
-
         }
 
         return "redirect:/start";
 
     }
 
-//    @PostMapping
-//    public String userGuess(@ModelAttribute Rate rate)
-//    {
-//
-//        rate = this.rate;
-//        BigDecimal input = BigDecimal.valueOf(rate.getMid()).setScale(2, RoundingMode.HALF_UP);
-//
-//        System.out.println(input);
-//
-//        if(input.compareTo(rateToGuess)>0)
-//        {
-//
-//            System.out.println("za dużo");
-//
-//        }
-//        if (input.compareTo(rateToGuess) == 0)
-//        {
-//
-//            System.out.println("wygrales");
-//        }
-//        else
-//        {
-//            System.out.println("za mało");
-//        }
-//
-//        return "redirect:/start";
-//
-//    }
+    @GetMapping("/error")
+    public String incorrectUserInput(Model model) {
+
+        return "error";
+    }
+
+    @GetMapping("/hint")
+    public String hint(Model model) {
+
+        model.addAttribute("low", currencyGameService.hintLow(rate.getMid()));
+        model.addAttribute("high", currencyGameService.hintHigh(rate.getMid()));
+
+        return "hint";
+    }
 }

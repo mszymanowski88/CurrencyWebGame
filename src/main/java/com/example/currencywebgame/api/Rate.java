@@ -9,9 +9,9 @@ import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "currency",
-    "code",
-    "mid"
+        "currency",
+        "code",
+        "mid"
 })
 @Generated("jsonschema2pojo")
 public class Rate {

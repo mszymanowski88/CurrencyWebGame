@@ -10,10 +10,10 @@ import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "table",
-    "no",
-    "effectiveDate",
-    "rates"
+        "table",
+        "no",
+        "effectiveDate",
+        "rates"
 })
 @Generated("jsonschema2pojo")
 public class AvailableCurrency {
